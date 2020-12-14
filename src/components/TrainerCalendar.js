@@ -20,12 +20,12 @@ export default function MyCalendar(){
   
 
   return (
-    <div style={{ height: 580, margin: 10 }}>
+    <div style={{ height: 800, margin: 40 }}>
       <Calendar 
       localizer={localizer} 
-      defaultView='month'
-      views={['month','week','day','agenda']}
+      views={['month','week','day']}
       events={trainings}
+      defaultView='week'
       
       titleAccessor={(event) => 
           event.activity + " with " + event.customer.firstname

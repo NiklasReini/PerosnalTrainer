@@ -12,20 +12,19 @@ export default function Statistics() {
     const[trainings, setTrainings] = useState([]);
     useEffect(() => fetchData(), [])
 
-    const formatData = (data) => {
+    const dataGroup = (data) => {
+
         let statistics = _(data).groupBy('activity').map((objs, key) => 
-                             ({
-                                'activity': key,
-                                'duration': _.sumBy(objs, 'duration') 
-                            })).value();
-        console.log(statistics);
+
+        ({'activity': key,'duration': _.sumBy(objs, 'duration') })).value();
+        
         return statistics;
     };
 
     const fetchData = () => {
         fetch('https://customerrest.herokuapp.com/api/trainings')
         .then(response => response.json())
-        .then(data => formatData(data.content))
+        .then(data => dataGroup(data.content))
         .then(stat => setTrainings(stat))
     }
 
@@ -34,15 +33,13 @@ export default function Statistics() {
     return(
         <div>
             <div>
-            <ResponsiveContainer width="80%" height={550}>
-            <BarChart data={trainings} margin={{ top: 40, right: 30, left: 20, bottom: 0 }} >
+            <ResponsiveContainer width="100%" height={700}>
+            <BarChart data={trainings} >
                 <XAxis dataKey="activity"/>
                 <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Bar dataKey="duration" fill="#ff7300"/>
+                <Bar dataKey="duration" fill="blue"/>
                 <Tooltip />
                 <Legend />
-                
             </BarChart>
             </ResponsiveContainer>
             </div>      
