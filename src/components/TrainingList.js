@@ -5,7 +5,7 @@ import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 
-export default function Carlist() { 
+export default function TrainingList() { 
     const[trainings, setTrainings] = useState([]);
     useEffect(() => fetchData(), [])
     
@@ -48,8 +48,8 @@ export default function Carlist() {
             sortable: false,
             filterable: false,
             width: 100,
-            accessor: 'links[0].href',
-            Cell: row => <Button size='small' color='secondary' onClick={() => deleteTraining(row.value)}>Delete</Button>
+            accessor: 'id',
+            Cell: row => <Button size='small' color='secondary' onClick={() => deleteTraining('https://customerrest.herokuapp.com/api/trainings/' + row.value)}>Delete</Button>
          },        
     ]
     return(
